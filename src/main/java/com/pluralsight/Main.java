@@ -13,6 +13,7 @@ public class Main {
     public static void main(String[] args) {
         transactions = FileHandle.readTransactions();
 
+        //Need to add comments to explain thinking
         boolean running = true;
 
         while (running) {
@@ -24,6 +25,7 @@ public class Main {
             System.out.print("Enter choice: ");
             String choice = scanner.nextLine().toUpperCase();
 
+            //Switch case necessary
             switch (choice) {
                 case "D":
                     addDeposit();
@@ -37,6 +39,7 @@ public class Main {
                 case "X":
                     running = false;
                     break;
+               //included if there is an invalid choice listed
                 default:
                     System.out.println("Invalid choice");
             }

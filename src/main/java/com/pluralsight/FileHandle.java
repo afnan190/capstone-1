@@ -12,6 +12,7 @@ public class FileHandle {
     public static ArrayList<Transaction> readTransactions() {
         ArrayList<Transaction> transactions = new ArrayList<>();
 
+        //Descriptions
         try {
             BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
             String line;
@@ -20,9 +21,13 @@ public class FileHandle {
                 String[] parts = line.split("\\|");
 
                 String date = parts[0];
+
                 String time = parts[1];
+
                 String description = parts[2];
+
                 String vendor = parts[3];
+
                 double amount = Double.parseDouble(parts[4]);
 
                 Transaction transaction = new Transaction(date, time, description, vendor, amount);

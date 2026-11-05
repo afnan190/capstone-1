@@ -1,12 +1,17 @@
 package com.pluralsight;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    static Scanner scanner = new Scanner(System.in);
+    static ArrayList<Transaction> transactions = new ArrayList<>();
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        ArrayList<Transaction> transactions = FileHandle.readTransactions();
+        transactions = FileHandle.readTransactions();
 
         boolean running = true;
 
@@ -21,10 +26,10 @@ public class Main {
 
             switch (choice) {
                 case "D":
-                    System.out.println("TODO: add deposit");
+                    addDeposit();
                     break;
                 case "P":
-                    System.out.println("TODO: make payment");
+                    makePayment();
                     break;
                 case "L":
                     for (Transaction t : transactions) {
@@ -39,5 +44,46 @@ public class Main {
                     System.out.println("Invalid choice");
             }
         }
+    }
+
+    public static void addDeposit() {
+        System.out.print("Description: ");
+        String description = scanner.nextLine();
+
+        System.out.print("Vendor: ");
+        String vendor = scanner.nextLine();
+
+        System.out.print("Amount: ");
+        double amount = Double.parseDouble(scanner.nextLine());
+
+        String date = LocalDate.now().toString();
+        String time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+        Transaction transaction = new Transaction(date, time, description, vendor, amount);
+        transactions.add(transaction);
+        FileHandle.writeTransaction(transaction);
+
+        System.out.println("Deposit saved!");
+    }
+
+    public static void makePayment() {
+        System.out.print("Description: ");
+        String description = scanner.nextLine();
+
+        System.out.print("Vendor: ");
+        String vendor = scanner.nextLine();
+
+        System.out.print("Amount: ");
+        double amount = Double.parseDouble(scanner.nextLine());
+        amount = amount * -1;
+
+        String date = LocalDate.now().toString();
+        String time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+        Transaction transaction = new Transaction(date, time, description, vendor, amount);
+        transactions.add(transaction);
+        FileHandle.writeTransaction(transaction);
+
+        System.out.println("Payment saved!");
     }
 }

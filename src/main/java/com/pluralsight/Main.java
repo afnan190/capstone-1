@@ -46,6 +46,7 @@ public class Main {
         }
     }
 
+    //Add Deposit
     public static void addDeposit() {
         System.out.print("Description: ");
         String description = scanner.nextLine();
@@ -66,6 +67,7 @@ public class Main {
         System.out.println("Deposit saved!");
     }
 
+    //Make Payment
     public static void makePayment() {
         System.out.print("Description: ");
         String description = scanner.nextLine();
@@ -87,6 +89,7 @@ public class Main {
         System.out.println("Payment saved!");
     }
 
+    //Ledger Screen
     public static void ledgerScreen() {
         boolean inLedger = true;
 
@@ -132,11 +135,13 @@ public class Main {
         }
     }
 
+    //Need to output transaction
     public static void printTransaction(Transaction t) {
         System.out.println(t.getDate() + " | " + t.getTime() + " | " + t.getDescription()
                 + " | " + t.getVendor() + " | " + t.getAmount());
     }
 
+    //Report Screen
     public static void reportsScreen() {
         boolean inReports = true;
 

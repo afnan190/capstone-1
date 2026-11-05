@@ -96,8 +96,44 @@ public class Main {
             System.out.println("R) Reports");
             System.out.println("H) Home");
             System.out.print("Enter choice: ");
-            String choice = scanner.nextLine();
+            String choice = scanner.nextLine().toUpperCase();
+
+            switch (choice) {
+                case "A":
+                    for (int i = transactions.size() - 1; i >= 0; i--) {
+                        printTransaction(transactions.get(i));
+                    }
+                    break;
+                case "D":
+                    for (int i = transactions.size() - 1; i >= 0; i--) {
+                        if (transactions.get(i).getAmount() > 0) {
+                            printTransaction(transactions.get(i));
+                        }
+                    }
+                    break;
+                case "P":
+                    for (int i = transactions.size() - 1; i >= 0; i--) {
+                        if (transactions.get(i).getAmount() < 0) {
+                            printTransaction(transactions.get(i));
+                        }
+                    }
+                    break;
+                case "R":
+                    System.out.println("Report");
+                    break;
+                case "H":
+                    inLedger = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+            }
+
+
         }
+    }
+    public static void printTransaction(Transaction t) {
+        System.out.println(t.getDate() + " | " + t.getTime() + " | " + t.getDescription()
+                + " | " + t.getVendor() + " | " + t.getAmount());
     }
 }
 

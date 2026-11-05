@@ -32,10 +32,7 @@ public class Main {
                     makePayment();
                     break;
                 case "L":
-                    for (Transaction t : transactions) {
-                        System.out.println(t.getDate() + " | " + t.getTime() + " | " + t.getDescription()
-                                + " | " + t.getVendor() + " | " + t.getAmount());
-                    }
+                    ledgerScreen();
                     break;
                 case "X":
                     running = false;
@@ -44,6 +41,7 @@ public class Main {
                     System.out.println("Invalid choice");
             }
         }
+
     }
 
     public static void addDeposit() {
@@ -86,4 +84,20 @@ public class Main {
 
         System.out.println("Payment saved!");
     }
+
+    public static void ledgerScreen() {
+        boolean inLedger = true;
+
+        while (inLedger) {
+            System.out.println("\n--- Ledger ---");
+            System.out.println("A) All");
+            System.out.println("D) Deposits");
+            System.out.println("P) Payments");
+            System.out.println("R) Reports");
+            System.out.println("H) Home");
+            System.out.print("Enter choice: ");
+            String choice = scanner.nextLine();
+        }
+    }
 }
+

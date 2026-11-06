@@ -56,7 +56,7 @@ public class Main {
 
         double amount = askForAmount();
 
-        String date = LocalDate.now().toString();
+        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
 
         Transaction transaction = new Transaction(date, time, description, vendor, amount);

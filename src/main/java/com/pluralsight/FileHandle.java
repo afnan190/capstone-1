@@ -14,7 +14,7 @@ public class FileHandle {
 
         //Descriptions
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
+            BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/transactions.csv"));
             String line;
 
             while ((line = reader.readLine()) != null) {
@@ -45,7 +45,7 @@ public class FileHandle {
 
     public static void writeTransaction(Transaction t) {
         try {
-            FileWriter writer = new FileWriter(FILE_NAME, true);
+            FileWriter writer = new FileWriter("src/main/resources/transactions.csv", true);
             writer.write(t.getDate() + "|" + t.getTime() + "|" + t.getDescription() + "|"
                     + t.getVendor() + "|" + t.getAmount() + "\n");
             writer.close();

@@ -216,6 +216,7 @@ public class Main {
 
     public static void previousYear() {
         int lastYear = LocalDate.now().getYear() - 1;
+
         for  (Transaction t : transactions) {
             LocalDate date = LocalDate.parse(t.getDate());
             if (date.getYear() == lastYear) {
@@ -227,8 +228,10 @@ public class Main {
     public static void searchByVendor() {
         System.out.print("Vendor name: ");
         String vendor = scanner.nextLine();
-        for {
-            if  {
+
+        for (Transaction t : transactions) {
+            if (t.getVendor().equals(vendor)) {
+                printTransaction(t);
             }
         }
     }

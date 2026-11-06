@@ -74,11 +74,10 @@ public class Main {
         System.out.print("Vendor: ");
         String vendor = scanner.nextLine();
 
-        System.out.print("Amount: ");
         double amount = askForAmount();
         amount = amount * -1;
 
-        String date = LocalDate.now().toString();
+        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
 
         Transaction transaction = new Transaction(date, time, description, vendor, amount);
@@ -227,7 +226,7 @@ public class Main {
     public static void previousYear() {
         int lastYear = LocalDate.now().getYear() - 1;
 
-        for  (Transaction t : transactions) {
+        for (Transaction t : transactions) {
             LocalDate date = LocalDate.parse(t.getDate());
             if (date.getYear() == lastYear) {
                 printTransaction(t);

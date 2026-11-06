@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class FileHandle {
-    private static final String FILE_NAME = "src/main/resources/transactions.csv";
 
     public static ArrayList<Transaction> readTransactions() {
         ArrayList<Transaction> transactions = new ArrayList<>();
@@ -15,11 +14,17 @@ public class FileHandle {
         //Descriptions
         try {
             BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/transactions.csv"));
+            reader.readLine();
             String line;
 
             while ((line = reader.readLine()) != null) {
 
                 String[] parts = line.split("\\|");
+
+                //skip rows that are missing a column
+                if (parts.length != 5) {
+                    continue;
+                }
 
                 String date = parts[0];
 

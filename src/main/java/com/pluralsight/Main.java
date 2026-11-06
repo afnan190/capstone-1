@@ -54,8 +54,7 @@ public class Main {
         System.out.print("Vendor: ");
         String vendor = scanner.nextLine();
 
-        System.out.print("Amount: ");
-        double amount = Double.parseDouble(scanner.nextLine());
+        double amount = askForAmount();
 
         String date = LocalDate.now().toString();
         String time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
@@ -76,7 +75,7 @@ public class Main {
         String vendor = scanner.nextLine();
 
         System.out.print("Amount: ");
-        double amount = Double.parseDouble(scanner.nextLine());
+        double amount = askForAmount();
         amount = amount * -1;
 
         String date = LocalDate.now().toString();

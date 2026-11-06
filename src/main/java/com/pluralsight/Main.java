@@ -215,7 +215,8 @@ public class Main {
     }
 
     public static void previousYear() {
-        for  {
+        int lastYear = LocalDate.now().getYear() - 1;
+        for  (Transaction t : transactions) {
             if {
 
             }

@@ -54,7 +54,7 @@ public class Main {
         System.out.print("Vendor: ");
         String vendor = scanner.nextLine();
 
-        double amount = askForAmount();
+        double amount = askAmount();
 
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
@@ -74,7 +74,7 @@ public class Main {
         System.out.print("Vendor: ");
         String vendor = scanner.nextLine();
 
-        double amount = askForAmount();
+        double amount = askAmount();
         amount = amount * -1;
 
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -87,7 +87,8 @@ public class Main {
         System.out.println("Payment saved!");
     }
 
-    public static double askForAmount() {
+    //helper method
+    public static double askAmount() {
         while (true) {
             System.out.print("Amount: ");
             try {

@@ -23,4 +23,5 @@ Deposits are positive, payments are negative.
 
 Challenges: What I Initially had was a three class structure
 
+![](/Users/afnanrahman/Desktop/Screenshot 2026-11-06 at 9.53.50 AM.png)
 

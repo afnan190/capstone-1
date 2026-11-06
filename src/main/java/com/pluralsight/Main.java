@@ -15,12 +15,15 @@ public class Main {
     static Scanner scanner = new Scanner(System.in);
     static ArrayList<Transaction> transactions = new ArrayList<>();
 
+    //reads every line in the csv and turns it into a Transaction
     public static ArrayList<Transaction> readTransactions() {
         ArrayList<Transaction> transactions = new ArrayList<>();
 
         //Descriptions
         try {
             BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/transactions.csv"));
+
+            //skip header line (usually header is there)
             reader.readLine();
             String line;
 
@@ -41,7 +44,8 @@ public class Main {
 
                 String vendor = parts[3];
 
-                double amount = Double.parseDouble(parts[4]);
+
+                double amount = Double.parseDouble(parts[4]); //text to number
 
                 Transaction transaction = new Transaction(date, time, description, vendor, amount);
                 transactions.add(transaction);
@@ -55,8 +59,10 @@ public class Main {
         return transactions;
     }
 
+    // adds one transaction to the end of the csv
     public static void writeTransaction(Transaction t) {
         try {
+            //to ensure we don't erase old entries: append = true
             FileWriter writer = new FileWriter("src/main/resources/transactions.csv", true);
             writer.write(t.getDate() + "|" + t.getTime() + "|" + t.getDescription() + "|"
                     + t.getVendor() + "|" + t.getAmount() + "\n");
@@ -67,6 +73,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        // load everything from the file when the app starts
         transactions = readTransactions();
 
         //Need to add comments to explain thinking
@@ -112,17 +119,20 @@ public class Main {
 
         double amount = askAmount();
 
+        // today's date and time so the user doesn't have to type them
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
 
+        //cool goal would be to schedule a deposit
+
         Transaction transaction = new Transaction(date, time, description, vendor, amount);
-        transactions.add(transaction);
-        writeTransaction(transaction);
+        transactions.add(transaction); //shows up in the ledger
+        writeTransaction(transaction); //saved for next time
 
         System.out.println("Deposit saved!");
     }
 
-    //Make Payment
+    //Make Payment (same as add deposit but the amount is saved negative
     public static void makePayment() {
         System.out.print("Description: ");
         String description = scanner.nextLine();
@@ -136,6 +146,8 @@ public class Main {
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
 
+        //cool goal would be to schedule a payment
+
         Transaction transaction = new Transaction(date, time, description, vendor, amount);
         transactions.add(transaction);
         writeTransaction(transaction);
@@ -144,11 +156,13 @@ public class Main {
     }
 
     //helper method
+    //included because of use case 'eleven'
+    //keeps asking until the user types a real number (ex. eleven)
     public static double askAmount() {
         while (true) {
             System.out.print("Amount: ");
             try {
-                return Double.parseDouble(scanner.nextLine());
+                return Double.parseDouble(scanner.nextLine()); //return leaves the loop
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a number");
             }
@@ -169,6 +183,8 @@ public class Main {
             System.out.print("Enter choice: ");
             String choice = scanner.nextLine().toUpperCase();
 
+            // new transactions are added to the end of the list,
+            // so I loop backwards to show the newest first
             switch (choice) {
                 case "A":
                     for (int i = transactions.size() - 1; i >= 0; i--) {
@@ -176,6 +192,7 @@ public class Main {
                     }
                     break;
                 case "D":
+                    //deposits are positive amounts
                     for (int i = transactions.size() - 1; i >= 0; i--) {
                         if (transactions.get(i).getAmount() > 0) {
                             printTransaction(transactions.get(i));
@@ -183,6 +200,7 @@ public class Main {
                     }
                     break;
                 case "P":
+                    //payments are negative amounts
                     for (int i = transactions.size() - 1; i >= 0; i--) {
                         if (transactions.get(i).getAmount() < 0) {
                             printTransaction(transactions.get(i));
@@ -193,7 +211,7 @@ public class Main {
                     reportsScreen();
                     break;
                 case "H":
-                    inLedger = false;
+                    inLedger = false; //back to home
                     break;
                 default:
                     System.out.println("Invalid choice");
@@ -202,12 +220,14 @@ public class Main {
     }
 
     //Need to output transaction
+    // prints one transaction, used by the ledger and all the reports
     public static void printTransaction(Transaction t) {
         System.out.println(t.getDate() + " | " + t.getTime() + " | " + t.getDescription()
                 + " | " + t.getVendor() + " | " + t.getAmount());
     }
 
     //Report Screen
+    // 0 goes back to the ledger
     public static void reportsScreen() {
         boolean inReports = true;
 
@@ -247,10 +267,13 @@ public class Main {
         }
     }
 
+    // this month: same month and same year as today
     public static void monthToDate() {
         LocalDate today = LocalDate.now();
 
         for (Transaction t : transactions) {
+
+            // date is a String, so turn it into a LocalDate
             LocalDate date = LocalDate.parse(t.getDate());
             if (date.getMonthValue() == today.getMonthValue() && date.getYear() == today.getYear()) {
                 printTransaction(t);
@@ -258,6 +281,7 @@ public class Main {
         }
     }
 
+    // last month: minusMonths(1) January going back to December
     public static void previousMonth() {
         LocalDate lastMonth = LocalDate.now().minusMonths(1);
 
@@ -269,6 +293,7 @@ public class Main {
         }
     }
 
+    // everything from this year
     public static void yearNow() {
         int thisYear = LocalDate.now().getYear();
 
@@ -280,6 +305,7 @@ public class Main {
         }
     }
 
+    // everything from last year
     public static void previousYear() {
         int lastYear = LocalDate.now().getYear() - 1;
 
@@ -291,6 +317,7 @@ public class Main {
         }
     }
 
+    // shows every transaction from the vendor the user types
     public static void searchByVendor() {
         System.out.print("Vendor name: ");
         String vendor = scanner.nextLine();

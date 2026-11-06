@@ -7,6 +7,7 @@ public class Transaction {
     private String vendor;
     private double amount;
 
+    //fields for when a transaction is made
     public Transaction(String date, String time, String description, String vendor, double amount) {
         this.date = date;
         this.time = time;
@@ -15,6 +16,7 @@ public class Transaction {
         this.amount = amount;
     }
 
+    //getters
     public String getDate() {
         return date;
     }

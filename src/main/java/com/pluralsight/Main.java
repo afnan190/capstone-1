@@ -182,23 +182,34 @@ public class Main {
     }
 
     public static void monthToDate() {
-        for {
-            if {
+        LocalDate today = LocalDate.now();
 
+        for (Transaction t : transactions) {
+            LocalDate date = LocalDate.parse(t.getDate());
+            if (date.getMonthValue() == today.getMonthValue() && date.getYear() == today.getYear()) {
+                printTransaction(t);
             }
         }
     }
 
     public static void previousMonth() {
-        for {
-            if {
+        LocalDate lastMonth = LocalDate.now().minusMonths(1);
+
+        for (Transaction t : transactions) {
+            LocalDate date = LocalDate.parse(t.getDate());
+            if (date.getMonthValue() == lastMonth.getMonthValue() && date.getYear() == lastMonth.getYear()) {
+                printTransaction(t);
             }
         }
     }
 
     public static void yearNow() {
-        for {
-            if {
+        int thisYear = LocalDate.now().getYear();
+
+        for (Transaction t : transactions) {
+            LocalDate date = LocalDate.parse(t.getDate());
+            if (date.getYear() == thisYear) {
+                printTransaction(t);
             }
         }
     }

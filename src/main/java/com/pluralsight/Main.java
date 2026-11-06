@@ -6,12 +6,68 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Main {
     static Scanner scanner = new Scanner(System.in);
     static ArrayList<Transaction> transactions = new ArrayList<>();
 
+    public static ArrayList<Transaction> readTransactions() {
+        ArrayList<Transaction> transactions = new ArrayList<>();
+
+        //Descriptions
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/transactions.csv"));
+            reader.readLine();
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+
+                String[] parts = line.split("\\|");
+
+                //skip rows that are missing a column
+                if (parts.length != 5) {
+                    continue;
+                }
+
+                String date = parts[0];
+
+                String time = parts[1];
+
+                String description = parts[2];
+
+                String vendor = parts[3];
+
+                double amount = Double.parseDouble(parts[4]);
+
+                Transaction transaction = new Transaction(date, time, description, vendor, amount);
+                transactions.add(transaction);
+            }
+
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Error reading the file.");
+        }
+
+        return transactions;
+    }
+
+    public static void writeTransaction(Transaction t) {
+        try {
+            FileWriter writer = new FileWriter("src/main/resources/transactions.csv", true);
+            writer.write(t.getDate() + "|" + t.getTime() + "|" + t.getDescription() + "|"
+                    + t.getVendor() + "|" + t.getAmount() + "\n");
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving the transaction.");
+        }
+    }
+
     public static void main(String[] args) {
-        transactions = FileHandle.readTransactions();
+        transactions = readTransactions();
 
         //Need to add comments to explain thinking
         boolean running = true;
@@ -61,7 +117,7 @@ public class Main {
 
         Transaction transaction = new Transaction(date, time, description, vendor, amount);
         transactions.add(transaction);
-        FileHandle.writeTransaction(transaction);
+        writeTransaction(transaction);
 
         System.out.println("Deposit saved!");
     }
@@ -82,7 +138,7 @@ public class Main {
 
         Transaction transaction = new Transaction(date, time, description, vendor, amount);
         transactions.add(transaction);
-        FileHandle.writeTransaction(transaction);
+        writeTransaction(transaction);
 
         System.out.println("Payment saved!");
     }

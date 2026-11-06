@@ -226,6 +226,7 @@ public class Main {
 
     public static void searchByVendor() {
         System.out.print("Vendor name: ");
+        String vendor = scanner.nextLine();
         for {
             if  {
             }

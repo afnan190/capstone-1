@@ -89,6 +89,13 @@ public class Main {
         System.out.println("Payment saved!");
     }
 
+    public static double askForAmount() {
+        while (true) {
+            try {
+            }
+        }
+    }
+
     //Ledger Screen
     public static void ledgerScreen() {
         boolean inLedger = true;

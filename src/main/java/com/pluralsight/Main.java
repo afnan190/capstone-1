@@ -31,24 +31,16 @@ public class Main {
 
                 String[] parts = line.split("\\|");
 
-                //skip rows that are missing a column
-                if (parts.length != 5) {
-                    continue;
+                if (parts.length == 5) {
+                    String date = parts[0];
+                    String time = parts[1];
+                    String description = parts[2];
+                    String vendor = parts[3];
+                    double amount = Double.parseDouble(parts[4]); //text to number
+
+                    Transaction transaction = new Transaction(date, time, description, vendor, amount);
+                    transactions.add(transaction);
                 }
-
-                String date = parts[0];
-
-                String time = parts[1];
-
-                String description = parts[2];
-
-                String vendor = parts[3];
-
-
-                double amount = Double.parseDouble(parts[4]); //text to number
-
-                Transaction transaction = new Transaction(date, time, description, vendor, amount);
-                transactions.add(transaction);
             }
 
             reader.close();
@@ -76,7 +68,6 @@ public class Main {
         // load everything from the file when the app starts
         transactions = readTransactions();
 
-        //Need to add comments to explain thinking
         boolean running = true;
 
         while (running) {
@@ -163,7 +154,7 @@ public class Main {
             System.out.print("Amount: ");
             try {
                 return Double.parseDouble(scanner.nextLine()); //return leaves the loop
-            } catch (NumberFormatException e) {
+            } catch (Exception e) {
                 System.out.println("Please enter a number");
             }
         }
@@ -318,6 +309,7 @@ public class Main {
     }
 
     // shows every transaction from the vendor the user types
+    //goal would be search by specific day/time
     public static void searchByVendor() {
         System.out.print("Vendor name: ");
         String vendor = scanner.nextLine();

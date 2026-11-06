@@ -20,8 +20,19 @@ date|time|description|vendor|amount
 ```
 Deposits are positive, payments are negative.
 
+![img.png](img.png)
 
 Challenges: What I Initially had was a three class structure
 
 ![](/Users/afnanrahman/Desktop/Screenshot 2026-11-06 at 9.53.50 AM.png)
 
+
+
+
+
+![img_1.png](img_1.png)
+
+
+
+
+![img_2.png](img_2.png)

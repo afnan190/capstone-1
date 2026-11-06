@@ -91,7 +91,11 @@ public class Main {
 
     public static double askForAmount() {
         while (true) {
+            System.out.print("Amount: ");
             try {
+                return Double.parseDouble(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a number");
             }
         }
     }

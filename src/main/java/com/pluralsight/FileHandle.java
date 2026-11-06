@@ -18,6 +18,7 @@ public class FileHandle {
             String line;
 
             while ((line = reader.readLine()) != null) {
+
                 String[] parts = line.split("\\|");
 
                 String date = parts[0];
